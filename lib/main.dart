@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fusion/firebase_options.dart';
 import 'package:fusion/screen/home_page.dart';
+import 'package:fusion/screen/Infopage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Fusion'),
+      home:  MyHomePage(title: 'Fusion'),
+      routes: {
+        "/infopage" :(context)=>Infopage(),
+      },
+
     );
   }
 }
