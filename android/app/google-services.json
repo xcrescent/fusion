@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "763728490787",
+    "project_id": "fusion-snu",
+    "storage_bucket": "fusion-snu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763728490787:android:5ebf721f9fa8ed6baf9c96",
+        "android_client_info": {
+          "package_name": "com.example.fusion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763728490787-ku2jba4f06m9n4opsibvn823ktvq0ccv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJySbxIssgpkdui6QfJdVuC2KePvFLkr8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763728490787-ku2jba4f06m9n4opsibvn823ktvq0ccv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
