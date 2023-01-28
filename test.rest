@@ -1,0 +1,20 @@
+POST https://automl.googleapis.com/v1beta1/projects/elitevidproj/locations/us-central1/models/TBL482354101837889536:predict 
+Authorization: Bearer ya29.a0AVvZVsoBIcEe3qC9Obyl84z6JfguxaCVYLhwqPxLlLxxAhTl_nYGB0ZHSx4eei4VJoO4QQ4Qu9QzSkhrael7S_E5yGqcjT1zBCC8ngr_UiErdj5ga7AWVTYe-dqMyxSILO0eB2VoCLySZ5nZXFJrKpQG2kdjbd9rnnFl8QaCgYKAagSAQASFQGbdwaIumrUHlxuL1wnRuy83dhENA0173
+x-goog-user-project: elitevidproj
+Content-Type: application/json
+
+{
+  "payload": {
+    "row": {
+      "values": [
+        "4",
+        "16792.76391",
+        "3"
+      ], "columnSpecIds": [
+        "4980532862005542912",
+        "8727527751977795584",
+        "4115841733550407680"
+      ]
+    }
+  }
+}
