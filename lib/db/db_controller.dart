@@ -14,6 +14,10 @@ class DBController {
   createItemInWarehouse(
     user,
     warehouseId,
+    commodity,
+    quantity,
+    category,
+    volume
   ) async {
     firebaseFirestore
         .collection('users')
@@ -23,10 +27,10 @@ class DBController {
         .collection("items")
         .doc()
         .set({
-      'Commodity': 'Poultry cuts & offal, except livers, fresh or chilled',
-      'Quantity': 34,
-      'Category': "02_meat_and_edible_meat_offal",
-      'Volume': 12,
+      'Commodity': commodity,
+      'Quantity': int.parse(quantity),
+      'Category': category,
+      'Volume': int.parse(volume),
     });
   }
 
