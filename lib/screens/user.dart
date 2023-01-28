@@ -73,7 +73,7 @@ class _UserState extends State<User> {
                         fit: BoxFit.cover,
                       ), //DecorationImage
                       border: Border.all(
-                        color: Colors.green,
+                        color: Color(0xff5956E9),
                         width: 8,
                       ), //Border.all
                       borderRadius: BorderRadius.circular(15),
@@ -97,7 +97,7 @@ class _UserState extends State<User> {
                         fit: BoxFit.cover,
                       ), //DecorationImage
                       border: Border.all(
-                        color: Colors.green,
+                        color: Color(0xff5956E9),
                         width: 8,
                       ), //Border.all
                       borderRadius: BorderRadius.circular(15),
