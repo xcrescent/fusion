@@ -210,12 +210,15 @@ class _SignUpPageState extends State<SignUpPage> {
                     )),
               ),
               const SizedBox(height: 10.0),
-              Text(
-                "Have an Account?",
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.grey.shade500,
-                  fontFamily: GoogleFonts.poppins().fontFamily,
+              InkWell(
+                onTap: () => Navigator.of(context).pushReplacementNamed('/login'),
+                child: Text(
+                  "Have an Account?",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    color: Colors.grey.shade500,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                  ),
                 ),
               ),
               // const SizedBox(

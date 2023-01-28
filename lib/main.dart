@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:fusion/admin/admin_page.dart';
+import 'package:fusion/auth/auth_controller.dart';
 import 'package:fusion/auth/auth_service.dart';
 import 'package:fusion/firebase_options.dart';
 import 'package:fusion/screens/add_warehouse.dart';
@@ -9,6 +11,8 @@ import 'package:fusion/screens/home_page.dart';
 import 'package:fusion/screens/getstarted.dart';
 import 'package:fusion/screens/login.dart';
 import 'package:fusion/screens/signup_page.dart';
+import 'package:fusion/screens/splash_screen.dart';
+import 'package:fusion/utils/const.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,11 +47,12 @@ class _MyAppState extends State<MyApp> {
               );
             }
             if (snapshot.hasData) {
-              SchedulerBinding.instance.addPostFrameCallback((_) {
-                Navigator.of(context).pushReplacementNamed('/home');
+              SchedulerBinding.instance.addPostFrameCallback((_) async {
+                final user = firebaseAuth.currentUser;
+                Navigator.of(context).pushReplacementNamed( await AuthController().checkAdmin(user));
               });
             }
-            return const GetStarted();
+            return SplashScreen();
           }),
       routes: {
         "/getStarted": ((context) => const GetStarted()),
@@ -56,7 +61,10 @@ class _MyAppState extends State<MyApp> {
         '/login': (context) => const LoginPage(),
         "/forgotPass": ((context) => const ForgotPassActivity()),
         "/addWarehouse": ((context) => const AddWareHouse()),
+        "/admin":((context) => const AdminPage())
       },
     );
   }
+
+  
 }

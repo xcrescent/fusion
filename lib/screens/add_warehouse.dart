@@ -158,18 +158,18 @@ class _AddWareHouseState extends State<AddWareHouse> {
                     }),
                 ElevatedButton(
                   onPressed: () async {
-                    var x = await HttpController().verifyCountryCode(wareHouseLocationController.text);
-                    if (x == "true") {
+                    // var x = await HttpController().verifyCountryCode(wareHouseLocationController.text);
+                    // if (x == "true") {
                       await DBController().createWarehouse(
                           user,
                           wareHouseNameController.text,
                           wareHouseLocationController.text);
                       if (!mounted) return;
                       Navigator.of(context).pop();
-                    } else {
-                      if (!mounted) return;
-                      showSnackBarr("Please select a country code", context);
-                    }
+                    // } else {
+                    //   if (!mounted) return;
+                    //   showSnackBarr("Please select a country code", context);
+                    // }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xff5956E9),

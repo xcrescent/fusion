@@ -35,12 +35,12 @@ class HttpController {
     }
   }
 
-  Future calculateDistance(from, to) async {
+  Future<double> calculateDistance(from, to) async {
     final response = await http.get(Uri.parse(
         'https://dazzling-shape-production.up.railway.app/distance/$from/$to'));
     if (response.statusCode == 200) {
    
-      return response.body;
+      return double.parse(response.body);
     } else {
      
       throw Exception('Failed to load album');
@@ -51,6 +51,15 @@ class HttpController {
         'https://dazzling-shape-production.up.railway.app/verifyCountry/$code'));
     if (response.statusCode == 200) {
       return response.body;
+    } else {
+      throw Exception('Failed to load album');
+    }
+  }
+  Future<double> predictedCost(q,v,d) async{
+    final response = await http.get(Uri.parse(
+        'https://web-production-55bb.up.railway.app/?q=$q&v=$v&d=$d'));
+    if (response.statusCode == 200) {
+      return double.parse(response.body);
     } else {
       throw Exception('Failed to load album');
     }
