@@ -208,7 +208,7 @@ class _InfopageState extends State<Infopage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xff5956E9),
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const AddItems()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> AddItems(warehouseId:widget.docId)));
         },
         child: const Icon(
           Icons.add,
