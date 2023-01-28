@@ -58,9 +58,6 @@ Container warehouse()
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(centerTitle: true,
-      //   title: Text(widget.title),
-      // ),
       body: Container(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -426,12 +423,16 @@ Container warehouse()
                                 width: 5,
                               ),
                               Column(children: [
-                                IconButton(onPressed:(){
+                                Container(
+
+                                    padding: EdgeInsets.all(5),
+                                    child: IconButton(onPressed:(){
                                   setState(() {
                                     count=1;
                                   });
-                                }, icon:Icon(Icons.add,size: 40,),),
-                                Text('ADD NEW WAREHOUSE')
+                                }, icon:Icon(Icons.add,size: 40),),),
+                                SizedBox(height: 10,),
+                                Text('ADD NEW WAREHOUSE'),
                               ],),
                             ],
                           ),
