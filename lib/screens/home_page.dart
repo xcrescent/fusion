@@ -30,10 +30,146 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   centerTitle: true,
-        //   title: Text('Fusion'),
-        // ),
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Color(0xff5956E9),
+        ),
+        drawer: SafeArea(
+          child: Drawer(
+              backgroundColor: Color(0xff5956E9),
+              child: Expanded(
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      'photos/Menu.png',
+                      fit: BoxFit.fill,
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 200, left: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.person_outline,
+                                color: Colors.white38,
+                                size: 45,
+                              ),
+                              SizedBox(
+                                width: 40,
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, "/profile");
+                                  },
+                                  child: Text(
+                                    'Profile',
+                                    style: TextStyle(
+                                        color: Colors.white38, fontSize: 23),
+                                  )),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 20, top: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.shopping_cart_outlined,
+                                color: Colors.white38,
+                                size: 40,
+                              ),
+                              SizedBox(
+                                width: 40,
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, "/track");
+                                  },
+                                  child: Text(
+                                    'My Orders',
+                                    style: TextStyle(
+                                        color: Colors.white38, fontSize: 23),
+                                  )),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 20, top: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.favorite_border,
+                                color: Colors.white38,
+                                size: 45,
+                              ),
+                              SizedBox(
+                                width: 40,
+                              ),
+                              TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    'WishList',
+                                    style: TextStyle(
+                                        color: Colors.white38,
+                                        fontSize: 23,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 20, top: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.settings,
+                                color: Colors.white38,
+                                size: 45,
+                              ),
+                              SizedBox(
+                                width: 40,
+                              ),
+                              TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    'Settings',
+                                    style: TextStyle(
+                                        color: Colors.white38, fontSize: 23),
+                                  )),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 20, top: 250),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.exit_to_app,
+                                color: Colors.white38,
+                                size: 40,
+                              ),
+                              TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    'Sign Out',
+                                    style: TextStyle(
+                                        color: Colors.white38, fontSize: 23),
+                                  )),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              )),
+        ),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

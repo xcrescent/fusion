@@ -8,7 +8,7 @@ class DBController {
         .doc(user)
         .collection("warehouses")
         .doc()
-        .set({'warehousename': warehousename, 'country': country});
+        .set({'warehouseName': warehousename, 'country': country.toString().toUpperCase()});
   }
 
   createItemInWarehouse(
@@ -43,7 +43,6 @@ class DBController {
       'quantity': quantity,
       'volume': volume,
       'distance': distance,
-      
     });
   }
 }

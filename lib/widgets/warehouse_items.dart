@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fusion/screens/Infopage.dart';
 import 'package:fusion/utils/const.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class WareHousesItems extends StatefulWidget {
   const WareHousesItems({super.key, required this.docId});

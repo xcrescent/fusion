@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fusion/screens/add_items.dart';
 import 'package:fusion/widgets/warehouse_items.dart';
-import 'package:fusion/widgets/warehouse_list.dart';
 
 class Infopage extends StatefulWidget {
   const Infopage({
@@ -208,7 +208,7 @@ class _InfopageState extends State<Infopage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xff5956E9),
         onPressed: () {
-          // DBController().createWarehouse(user, warehousename, country)
+          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const AddItems()));
         },
         child: const Icon(
           Icons.add,

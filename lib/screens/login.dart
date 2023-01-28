@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fusion/auth/auth_service.dart';
+import 'package:fusion/utils/const.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,12 +11,34 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  
   bool _isLoading = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  loginUsers() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthService().loginUsers(
+        _emailController.text.trim(), _passwordController.text.trim());
+    if (res != 'success') {
+      setState(() {
+        _isLoading = false;
+      });
+      if (!mounted) return;
+      return showSnackBarr(res, context);
+    } else {
+      if (!mounted) return;
+      showSnackBarr(
+          'Congratulations you have been successfully signed in..', context);
+          final uid = firebaseAuth.currentUser?.uid;
+          if(uid)
+      return Navigator.of(context).pushReplacementNamed('/home');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    var emailController = TextEditingController();
-    var passwordController = TextEditingController();
-
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return SafeArea(
@@ -143,11 +166,8 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
-                        AuthService().loginUsers(
-                          emailController.text.trim(),
-                          passwordController.text.trim(),
-                        );
+                      onPressed: () async {
+                        await loginUsers();
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 2,
@@ -213,9 +233,9 @@ class _LoginPageState extends State<LoginPage> {
               // const SizedBox(
               //   height: 15.0,
               // ),
-              GestureDetector(
-                onTap: () {
-                  signInWithGoogle();
+              InkWell(
+                onTap: () async {
+                  await signInWithGoogle();
                 },
                 child: CircleAvatar(
                   radius: 24,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fusion/auth/auth_service.dart';
 import 'package:fusion/db/db_controller.dart';
 import 'package:fusion/db/http_controller.dart';
 import 'package:fusion/utils/const.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddWareHouse extends StatefulWidget {
@@ -15,243 +17,36 @@ class _AddWareHouseState extends State<AddWareHouse> {
   final user = firebaseAuth.currentUser?.uid;
   TextEditingController wareHouseNameController = TextEditingController();
   TextEditingController wareHouseLocationController = TextEditingController();
-  List country = [
-    "ABW",
-    "AFG",
-    "AGO",
-    "AIA",
-    "ALB",
-    "AND",
-    "ARE",
-    "ARG",
-    "ARM",
-    "ASM",
-    "ATA",
-    "ATF",
-    "ATG",
-    "AUS",
-    "AUT",
-    "AZE",
-    "BDI",
-    "BEL",
-    "BEN",
-    "BES",
-    "BFA",
-    "BGD",
-    "BGR",
-    "BHR",
-    "BHS",
-    "BIH",
-    "BLM",
-    "BLR",
-    "BLZ",
-    "BMU",
-    "BOL",
-    "BRA",
-    "BRB",
-    "BTN",
-    "BWA",
-    "CAF",
-    "CAN",
-    "CCK",
-    "CHE",
-    "CHL",
-    "CHN",
-    "CIV",
-    "CMR",
-    "COD",
-    "COG",
-    "COK",
-    "COL",
-    "COM",
-    "CPV",
-    "CRI",
-    "CUB",
-    "CUW",
-    "CXR",
-    "CYM",
-    "CYP",
-    "CZE",
-    "DEU",
-    "DJI",
-    "DMA",
-    "DNK",
-    "DOM",
-    "DZA",
-    "ECU",
-    "EGY",
-    "ERI",
-    "ESH",
-    "ESP",
-    "EST",
-    "ETH",
-    "FIN",
-    "FJI",
-    "FRA",
-    "FRO",
-    "FSM",
-    "GAB",
-    "GBR",
-    "GEO",
-    "GGY",
-    "GHA",
-    "GIB",
-    "GIN",
-    "GLP",
-    "GMB",
-    "GNB",
-    "GNQ",
-    "GRC",
-    "GRD",
-    "GRL",
-    "GTM",
-    "GUF",
-    "GUM",
-    "GUY",
-    "HKG",
-    "HND",
-    "HRV",
-    "HTI",
-    "HUN",
-    "IDN",
-    "IMN",
-    "IND",
-    "IOT",
-    "IRL",
-    "IRN",
-    "IRQ",
-    "ISL",
-    "ISR",
-    "ITA",
-    "JAM",
-    "JEY",
-    "JOR",
-    "JPN",
-    "KAZ",
-    "KEN",
-    "KGZ",
-    "KHM",
-    "KIR",
-    "KNA",
-    "KWT",
-    "LBN",
-    "LBR",
-    "LBY",
-    "LCA",
-    "LIE",
-    "LKA",
-    "LSO",
-    "LTU",
-    "LUX",
-    "LVA",
-    "MAC",
-    "MAR",
-    "MCO",
-    "MDA",
-    "MDG",
-    "MDV",
-    "MEX",
-    "MHL",
-    "MKD",
-    "MLI",
-    "MLT",
-    "MMR",
-    "MNE",
-    "MNG",
-    "MNP",
-    "MOZ",
-    "MRT",
-    "MSR",
-    "MTQ",
-    "MUS",
-    "MWI",
-    "MYS",
-    "MYT",
-    "NAM",
-    "NCL",
-    "NER",
-    "NFK",
-    "NGA",
-    "NIC",
-    "NIU",
-    "NLD",
-    "NOR",
-    "NPL",
-    "NRU",
-    "NZL",
-    "OMN",
-    "PAK",
-    "PAN",
-    "PCN",
-    "PER",
-    "PHL",
-    "PLW",
-    "PNG",
-    "POL",
-    "PRI",
-    "PRT",
-    "PRY",
-    "PSE",
-    "PYF",
-    "QAT",
-    "REU",
-    "ROU",
-    "RUS",
-    "RWA",
-    "SAU",
-    "SDN",
-    "SEN",
-    "SGP",
-    "SGS",
-    "SHN",
-    "SJM",
-    "SLB",
-    "SLE",
-    "SLV",
-    "SMR",
-    "SOM",
-    "SPM",
-    "SRB",
-    "SSD",
-    "STP",
-    "SUR",
-    "SVK",
-    "SVN",
-    "SWE",
-    "SWZ",
-    "SYC",
-    "SYR",
-    "TCA",
-    "TCD",
-    "TGO",
-    "THA",
-    "TJK",
-    "TKL",
-    "TKM",
-    "TLS",
-    "TON",
-    "TTO",
-    "TUN",
-    "TUR",
-    "TUV",
-    "TWN",
-    "TZA",
-    "UGA",
-    "UKR",
-    "URY",
-    "USA",
-    "UZB",
-    "VCT",
-    "VEN",
-    "VNM",
-    "VUT",
-    "WLF",
-    "WSM",
-    "YEM",
-    "ZAF",
-    "ZMB",
-    "ZWE"
-  ];
+  late Future<Countries> futureCountry;
+  String countries = '';
+  void _printLatestValue() {
+    var t = wareHouseLocationController.text.toLowerCase();
+    // futureCity = cities.where((a) => a.toString().contains(t)).toList();
+
+    if (t.length > 1) {
+      setState(() {
+        countries = t;
+        futureCountry = HttpController().getCountryFunc(countries);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    wareHouseLocationController.addListener(_printLatestValue);
+
+    futureCountry = HttpController().getCountryFunc(countries);
+
+    // citiesData().fetchData();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    wareHouseLocationController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var futureCity =
@@ -327,48 +122,54 @@ class _AddWareHouseState extends State<AddWareHouse> {
                 const SizedBox(
                   height: 20,
                 ),
-                // FutureBuilder(
-                //     future: futureCity,
-                //     builder: (context, snapshot) {
-                //       if (snapshot.hasData) {
-                //         int x = 0;
-                //         if (snapshot.data!.city.length > 30)
-                //           x = 30;
-                //         else
-                //           x = snapshot.data!.country.length;
-                //         return 
-                ListView.builder(
+                FutureBuilder(
+                    future: futureCountry,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        int x = 0;
+                        if (snapshot.data!.countries.length > 30) {
+                          x = 30;
+                        } else {
+                          x = snapshot.data!.countries.length;
+                        }
+                        return ListView.builder(
                           shrinkWrap: true,
-                          itemCount: country.length,
+                          itemCount: x,
                           controller: ScrollController(),
                           scrollDirection: Axis.vertical,
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () {
                                 wareHouseLocationController.text =
-                                    country[index];
-                              },);}),
-                //               child: ListTile(
-                //                 title: Text(snapshot.data!.city[index]),
-                //               ),
-                //             );
-                //           },
-                //         );
-                //       } else if (snapshot.hasError) {
-                //         return Text('${snapshot.error}');
-                //       }
-
-                //       // By default, show a loading spinner.
-                //       return Column(
-                //           crossAxisAlignment: CrossAxisAlignment.center,
-                //           children: const [CircularProgressIndicator()]);
-                //     }),
+                                    snapshot.data!.countries[index];
+                              },
+                              child: ListTile(
+                                title: Text(snapshot.data!.countries[index]),
+                              ),
+                            );
+                          },
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text('${snapshot.error}');
+                      }
+                      return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: const [CircularProgressIndicator()]);
+                    }),
                 ElevatedButton(
-                  onPressed: () {
-                    DBController().createWarehouse(
-                        user,
-                        wareHouseNameController.text,
-                        wareHouseLocationController.text);
+                  onPressed: () async {
+                    var x = await HttpController().verifyCountryCode(wareHouseLocationController.text);
+                    if (x == "true") {
+                      await DBController().createWarehouse(
+                          user,
+                          wareHouseNameController.text,
+                          wareHouseLocationController.text);
+                      if (!mounted) return;
+                      Navigator.of(context).pop();
+                    } else {
+                      if (!mounted) return;
+                      showSnackBarr("Please select a country code", context);
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xff5956E9),

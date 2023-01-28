@@ -106,7 +106,7 @@ class AuthService{
         }
       }
       res = 'success';
-      return userCredential;
+      return res;
     } on FirebaseAuthException catch (e) {
       // print(e);
     } catch (e) {
