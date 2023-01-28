@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fusion/screens/order.dart';
+import 'package:fusion/admin/order.dart';
 
-class Admin_Page extends StatelessWidget {
-  const Admin_Page({Key? key}) : super(key: key);
+class AdminPage extends StatelessWidget {
+  const AdminPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +47,7 @@ class Admin_Page extends StatelessWidget {
         ],
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           SizedBox(
             height: 35.0,
@@ -66,14 +67,14 @@ class Admin_Page extends StatelessWidget {
           ),
           Image(
             image: AssetImage(
-              "assets/cloud.png",
+              "assets/images/cloud.png",
             ),
           ),
           SizedBox(
-            height: 40.0,
+            height: 35.0,
           ),
           SizedBox(
-            height: 60.0,
+            height: 45.0,
             width: 325.0,
             child: ElevatedButton(
                 onPressed: (){
@@ -104,7 +105,7 @@ class Admin_Page extends StatelessWidget {
             height: MediaQuery.of(context).size.height-421,
             child: Image(
               image: AssetImage(
-                "assets/man.png",
+                "assets/images/man.png",
               ),
             ),
           ),

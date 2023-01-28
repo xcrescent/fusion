@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fusion/screens/login.dart';
 import 'package:fusion/screens/user.dart';
 
 class GetStarted extends StatelessWidget {
@@ -28,7 +29,7 @@ class GetStarted extends StatelessWidget {
               width: 225.0,
               child: ElevatedButton(
                   onPressed: (){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const User()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const LoginPage()));
                   },
                   style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all<Color>(Colors.white),

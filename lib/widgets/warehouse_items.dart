@@ -10,7 +10,7 @@ class WareHousesItems extends StatefulWidget {
 }
 
 class _WareHousesItemsState extends State<WareHousesItems> {
-  late Map<String,dynamic> counter;
+  late Map<String, dynamic> counter;
   @override
   Widget build(BuildContext context) {
     final uid = firebaseAuth.currentUser?.uid;
@@ -39,9 +39,9 @@ class _WareHousesItemsState extends State<WareHousesItems> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               for (int i = 0; i < snapshot.data!.docs.length; i++)
-                
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -82,7 +82,7 @@ class _WareHousesItemsState extends State<WareHousesItems> {
                           children: [
                             IconButton(
                               onPressed: () {},
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.remove,
                                 color: Colors.white,
                               ),
@@ -90,10 +90,14 @@ class _WareHousesItemsState extends State<WareHousesItems> {
                             Text(counter[snapshot.data!.docs[i].id].toString()),
                             IconButton(
                               onPressed: () {
-
+                                if (counter[snapshot.data!.docs[i].id] ==
+                                    null) {
+                                  counter[snapshot.data!.docs[i].id] = 1;
+                                } else {
+                                  counter[snapshot.data!.docs[i].id]++;
+                                }
                               },
-                              
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.add,
                                 color: Colors.white,
                               ),

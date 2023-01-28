@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fusion/admin/admin_page.dart';
+import 'package:fusion/auth/auth_controller.dart';
 import 'package:fusion/auth/auth_service.dart';
 import 'package:fusion/utils/const.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
@@ -11,7 +14,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  
+  bool admin = false;
   bool _isLoading = false;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -31,11 +34,24 @@ class _LoginPageState extends State<LoginPage> {
       if (!mounted) return;
       showSnackBarr(
           'Congratulations you have been successfully signed in..', context);
-          final uid = firebaseAuth.currentUser?.uid;
-          if(uid)
-      return Navigator.of(context).pushReplacementNamed('/home');
+      final user = firebaseAuth.currentUser;
+      Navigator.of(context)
+          .pushReplacementNamed(await AuthController().checkAdmin(user));
     }
   }
+
+  // checkAdmin(uid) async {
+  //   var adminDoc = await firebaseFirestore.collection('admin').get();
+  //   for (var element in adminDoc.docs) {
+  //     if (element.id == uid) {
+  //       if (!mounted) return;
+  //       Navigator.of(context).pushReplacement(
+  //           MaterialPageRoute(builder: (context) => const AdminPage()));
+  //     }
+  //   }
+  //   if (!mounted) return;
+  //   Navigator.of(context).pushReplacementNamed('/home');
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                                 color: Colors.deepPurpleAccent,
                               ),
                             ),
-                            controller: emailController,
+                            controller: _emailController,
                           ),
                           const SizedBox(height: 30.0),
                           TextFormField(
@@ -129,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                                 color: Colors.deepPurpleAccent,
                               ),
                             ),
-                            controller: passwordController,
+                            controller: _passwordController,
                           ),
                           const SizedBox(
                             height: 20,
@@ -264,7 +280,9 @@ class _LoginPageState extends State<LoginPage> {
       if (!mounted) return;
       showSnackBarr(
           'Congratulations you have been successfully signed in..', context);
-      return Navigator.of(context).pushReplacementNamed('/home');
+      final user = firebaseAuth.currentUser;
+      
+      Navigator.of(context).pushReplacementNamed(await AuthController().checkAdmin(user));
     }
   }
 }
