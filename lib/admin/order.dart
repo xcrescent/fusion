@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Order extends StatefulWidget {
-  const Order({Key? key}) : super(key: key);
+  const Order({super.key});
 
   @override
   State<Order> createState() => _OrderState();
@@ -15,7 +15,7 @@ class _OrderState extends State<Order> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             "ORDERS",
             style: TextStyle(
               color: Colors.deepPurpleAccent,
@@ -41,19 +41,19 @@ class _OrderState extends State<Order> {
         ),
         body: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 40.0,
             ),
             Container(
               child: Row (
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 8.0,
                   ),
                   Container(
                     height:  105,
                     width: w*0.3,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xffE5C7FC),
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(10),
@@ -69,7 +69,7 @@ class _OrderState extends State<Order> {
                         ),
                       ],
                     ),
-                    child: Column(
+                    child: const Column(
                       children: [
                         SizedBox(
                           height:10.0 ,
@@ -94,13 +94,13 @@ class _OrderState extends State<Order> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 8.0,
                   ),
                   Container(
                     height:  105,
                     width: w*0.3,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xffE4FFFC),
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(10),
@@ -116,7 +116,7 @@ class _OrderState extends State<Order> {
                         ),
                       ],
                     ),
-                    child: Column(
+                    child: const Column(
                       children: [
                         SizedBox(
                           height:10.0 ,
@@ -141,13 +141,13 @@ class _OrderState extends State<Order> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 8.0,
                   ),
                   Container(
                     height:  105,
                     width: w*0.3,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xffF3E3CC),
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(10),
@@ -163,7 +163,7 @@ class _OrderState extends State<Order> {
                         ),
                       ],
                     ),
-                    child: Column(
+                    child: const Column(
                       children: [
                         SizedBox(
                           height:10.0 ,
@@ -191,16 +191,16 @@ class _OrderState extends State<Order> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
-            Row(
+            const Row(
               children: [
                 SizedBox(
                   width: 20.0,
                 ),
                 Image(
-                    image: AssetImage("assets/box2.png")
+                    image: AssetImage("assets/images/box2.png")
                 ),
                 SizedBox(
                   width: 20.0,
@@ -214,16 +214,16 @@ class _OrderState extends State<Order> {
                 )
               ],
             ),
-            SizedBox(
+          const  SizedBox(
               height: 20.0,
             ),
-            Row(
+            const Row(
               children: [
                 SizedBox(
                   width: 20.0,
                 ),
                 Text(
-                  "NewYork",
+                  "1. NewYork",
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
@@ -244,7 +244,7 @@ class _OrderState extends State<Order> {
                   height: 30,
                   width: 30,
                   child: Image(
-                    image: AssetImage("assets/accept.png"),
+                    image: AssetImage("assets/images/accept.png"),
                   ),
                 ) ,
                 SizedBox( width: 20,),
@@ -252,11 +252,58 @@ class _OrderState extends State<Order> {
                   height: 30,
                   width: 30,
                   child: Image(
-                    image: AssetImage("assets/multiply.png"),
+                    image: AssetImage("assets/images/multiply.png"),
                   ),
                 ) ,
               ],
             ),
+            const  SizedBox(
+              height: 20.0,
+            ),
+            const Row(
+              children: [
+                SizedBox(
+                  width: 20.0,
+                ),
+                Text(
+                  "2. Denmark",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  width: 20.0,
+                ),
+                Text(
+                  "246",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox( width: 60,),
+                SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: Image(
+                    image: AssetImage("assets/images/accept.png"),
+                  ),
+                ) ,
+                SizedBox( width: 20,),
+                SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: Image(
+                    image: AssetImage("assets/images/multiply.png"),
+                  ),
+                ) ,
+              ],
+            ),
+            const  SizedBox(
+              height: 20.0,
+            ),
+ 
           ],
         ),
       ),

@@ -6,14 +6,14 @@ import 'package:fusion/utils/const.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class AdminLoginPage extends StatefulWidget {
+  const AdminLoginPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<AdminLoginPage> createState() => _AdminLoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _AdminLoginPageState extends State<AdminLoginPage> {
   bool admin = false;
   bool _isLoading = false;
   final TextEditingController _emailController = TextEditingController();
@@ -250,8 +250,8 @@ class _LoginPageState extends State<LoginPage> {
               //   height: 15.0,
               // ),
               InkWell(
-                onTap: () async {
-                  await signInWithGoogle();
+                onTap: ()  {
+                  Navigator.pushNamed(context, '/admin');
                 },
                 child: CircleAvatar(
                   radius: 24,

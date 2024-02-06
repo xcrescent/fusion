@@ -1,43 +1,65 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:fusion/auth_controller.dart';
-import 'package:fusion/auth_service.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:fusion/auth/auth_service.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
   @override
-
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  bool _isLoading = false;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  List images = [
+    "g.png",
+    "f.png",
+    "t.png",
+  ];
+
   @override
-
   Widget build(BuildContext context) {
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
 
-    var emailController = TextEditingController();
-    var passwordController=  TextEditingController();
-    List images =[
-      "g.png",
-      "f.png",
-      "t.png",
-    ];
+    signUpUser() async {
+      setState(() {
+        _isLoading = true;
+      });
+      String res = await AuthService().signUpUser(
+        _emailController.text.trim(),
+        _passwordController.text.trim(),
+        _nameController.text,
+      );
 
-    double w=MediaQuery.of(context).size.width;
-    double h=MediaQuery.of(context).size.height;
-    return MaterialApp(
-      home: Scaffold(
+      if (res != 'success') {
+        setState(() {
+          _isLoading = false;
+        });
+        if (!mounted) return;
+        return showSnackBarr(res, context);
+      } else {
+        if (!mounted) return;
+        showSnackBarr(
+            'Congratulations account has been created for you', context);
+        return Navigator.of(context).pushReplacementNamed('/home');
+      }
+    }
+
+    return SafeArea(
+      child: Scaffold(
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: Column (
+          child: Column(
             children: [
               Container(
                 width: w,
-                height: h*0.3,
-                decoration: BoxDecoration(
+                height: h * 0.3,
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/images/signup4.png"),
                     fit: BoxFit.fitWidth,
@@ -45,7 +67,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(height: h*0.15),
+                    SizedBox(height: h * 0.15),
                   ],
                 ),
               ),
@@ -54,15 +76,18 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(left: 30.0),
-                  child: Text(
-                  "Sign up",
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Color(0xff5956E9),
-                      fontWeight: FontWeight.bold
+                    child: Text(
+                      "Sign up",
+                      style: TextStyle(
+                        fontFamily: GoogleFonts.poppins().fontFamily,
+                        fontSize: 26,
+                        color: Color(0xff5956E9),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                ),
-              ),],),
+                ],
+              ),
               SizedBox(
                 height: 5.0,
               ),
@@ -72,17 +97,21 @@ class _SignUpPageState extends State<SignUpPage> {
                   Container(
                     margin: EdgeInsets.only(left: 30.0),
                     child: Text(
-                      "Create an account to continue our services",
+                      "Create an account to continue services",
                       style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold
+                        fontSize: 16,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: GoogleFonts.poppins().fontFamily,
                       ),
                     ),
-                  ),],),
+                  ),
+                ],
+              ),
               Container(
                 width: w,
-                margin: EdgeInsets.only(left : 20),
+              //  margin: EdgeInsets.only(left: 20 , right: 40),
+                padding: EdgeInsets.only(left: 12.0, right: 20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -90,29 +119,68 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: 40.0,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 12.0 , right: 20.0),
-                      child: TextField(
-                        controller: emailController,
+                      padding: EdgeInsets.only(left: 12.0, right: 20.0),
+                      child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                      //  cursorColor: Color(0xff5956E9),
+                        decoration: const InputDecoration(
+                         //   filled: true,
+                            border: OutlineInputBorder(),
+                            hintText: "Enter full name",
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xff5956E9),
+
+                              ),
+                            ),
+                            // labelStyle: TextStyle(
+                            //     color: Color(0xff5956E9)
+                            // ),
+                          //  labelText: 'Enter full name',
+
+                            hoverColor: Colors.redAccent,
+                            prefixIcon: Icon(
+                              Icons.person,
+                              color: Color(0xff5956E9),
+                            )),
+                        validator: ((value) {
+                          if (value!.isEmpty) {
+                            return "First Name is empty";
+                          }
+                          return null;
+                        }),
+                        controller: _nameController,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 12.0, right: 20.0),
+                      child: TextFormField(
+                        controller: _emailController,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                          ),
+                          border: OutlineInputBorder(),
                           hintText: "Your email id",
-                          prefixIcon: Icon(Icons.mail_rounded , color: Colors.deepPurpleAccent,),
+                          prefixIcon: Icon(
+                            Icons.mail_rounded,
+                            color: Colors.deepPurpleAccent,
+                          ),
                           hoverColor: Colors.red,
                         ),
                       ),
                     ),
                     SizedBox(height: 30.0),
                     Padding(
-                      padding: EdgeInsets.only(left: 12.0 , right: 20.0),
-                      child: TextField(
-                        controller: passwordController,
+                      padding: EdgeInsets.only(left: 12.0, right: 20.0),
+                      child: TextFormField(
+                        controller: _passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                          ),
+                          border: OutlineInputBorder(),
                           hintText: "Your Password",
-                          prefixIcon: Icon(Icons.key , color: Colors.deepPurpleAccent),
+                          prefixIcon:
+                          Icon(Icons.key, color: Colors.deepPurpleAccent),
                           hoverColor: Colors.red,
                         ),
                       ),
@@ -123,46 +191,23 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(
                 height: 60.0,
               ),
-              // GestureDetector(
-              //   onTap: () {
-              //     AuthController.instance.register(emailController.text.trim(), passwordController.text.trim());
-              //   },
-              //   child: Container(
-              //     width: w*0.5,
-              //     height: h*0.08,
-              //     decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(30.0),
-              //       image: DecorationImage(
-              //         image: AssetImage("assets/images/loginbtn.png"),
-              //         fit: BoxFit.cover,
-              //       ),
-              //     ),
-              //     child: Center(
-              //       child: Text (
-              //         "Sign up",
-              //         style: TextStyle(
-              //           fontSize: 36.0,
-              //           color: Colors.white,
-              //           fontWeight: FontWeight.bold,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               SizedBox(
                 height: 60.0,
                 width: 325.0,
                 child: ElevatedButton(
-                    onPressed: (){
-                      AuthController.instance.register(emailController.text.trim(), passwordController.text.trim());
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        signUpUser();
+                        // _fnameController.clear();
+                      } else {
+                        showSnackBarr('Please check your details', context);
+                      }
                     },
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                      backgroundColor: MaterialStateProperty.all<Color>(Color(0xff5956E9)),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Color(0xff5956E9),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
                     child: Text(
@@ -171,75 +216,34 @@ class _SignUpPageState extends State<SignUpPage> {
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
+                        fontFamily: GoogleFonts.poppins().fontFamily,
                       ),
-                    )
-                ),
+                    )),
               ),
-              SizedBox(
-                  height: 10.0
-              ),
-              RichText(text: TextSpan(
-                  recognizer: TapGestureRecognizer()..onTap=()=>Get.back(),
-                  text: "Have an Account?",
+              const SizedBox(height: 10.0),
+              InkWell(
+                onTap: () => Navigator.of(context).pushReplacementNamed('/login'),
+                child: Text(
+                  "Have an Account?",
                   style: TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.grey.shade500
-                  )
-              ),
-              ),
-              SizedBox(
-                height: w*0.160,
-              ),
-              Text(
-                "Sign up using on the following method",
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.black
+                    fontSize: 18.0,
+                    color: Colors.grey.shade500,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 15.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: (){
-                      AuthService().signInWithGoogle();
-                    },
-                    child: CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Colors.grey[500],
-                      child: CircleAvatar(
-                        radius: 25,
-                        backgroundImage: AssetImage("assets/images/g.png"),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 13.0,
-                  ),
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.grey[500],
-                    child: CircleAvatar(
-                      radius: 25,
-                      backgroundImage: AssetImage("assets/images/f.png"),
-                    ),
-                  ),
-                  // SizedBox(
-                  //   width: 13.0,
-                  // ),
-                  // CircleAvatar(
-                  //   radius: 30,
-                  //   backgroundColor: Colors.grey[500],
-                  //   child: CircleAvatar(
-                  //     radius: 25,
-                  //     backgroundImage: AssetImage("img/t.png"),
-                  //   ),
-                  // ),
-                ],
-              ),
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              // Text(
+              //   "Sign up using on the following method",
+              //   style: TextStyle(
+              //     fontSize: 16.0,
+              //     color: Colors.black54,
+              //     fontFamily: GoogleFonts.poppins().fontFamily,
+              //   ),
+              // ),
+
             ],
           ),
         ),
